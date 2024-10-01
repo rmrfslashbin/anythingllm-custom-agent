@@ -354,3 +354,18 @@ module.exports.runtime = {
   },
 };
 ```
+
+## Where is my data located?
+All data pertaining to AnythingLLM Desktop will be in the following locations. Please replace `<usr>` with your device username.
+
+- On Mac: `/Users/<usr>/Library/Application Support/anythingllm-desktop/storage`
+- On Linux: `/Users/<usr>/.config/anythingllm-desktop/storage/`
+- On Windows: `C:\User\<usr>\AppData\Roaming\anythingllm-desktop\storage`
+
+### What is each folder?
+- `lancedb`: This it where your local vector database and its tables are stored.
+- `documents`: This is the parsed document content of any uploaded files.
+- `vector-cache`: This folder is the cached and embedded representation of a previous uploaded and embedded file. Its filename is hashed.
+- `models`: Any locally stored LLMs or Embedder models used by the system are stored here. Typically are GGUF files.
+- `anythingllm.db`: This is the AnythingLLM SQLite database.
+- `plugins`: This is the folder where your custom agent skills are stored.
