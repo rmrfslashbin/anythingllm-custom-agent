@@ -6,4 +6,4 @@
 	url = git@github.com:rmrfslashbin/anythingllm-cutom-agent-osm-api-interface
 [submodule "neo4j-graph-query"]
 	path = neo4j-graph-query
-	url = git@github.com:rmrfslashbin/nythingllm-custom-agent-neo4j-graph-query
+	url = git@github.com:rmrfslashbin/anythingllm-custom-agent-neo4j-graph-query
