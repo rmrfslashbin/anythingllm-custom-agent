@@ -1,5 +1,5 @@
 [submodule "anythingllm-custom-agent-timestamp"]
-	path = anythingllm-custom-agent-timestamp
+	path = timestamp
 	url = git@github.com:rmrfslashbin/anythingllm-custom-agent-timestamp.git
 [submodule "osm-api-interface"]
 	path = osm-api-interface
