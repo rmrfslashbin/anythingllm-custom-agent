@@ -34,6 +34,72 @@ This guide is intended for developers who want to create custom agent skills for
 - The must define your entry point of your custom agent skill as a `handler.js` file.
 - You must wrap your entire custom agent skill in a folder with the same name property that is defined in the `plugin.json` file.
 
+### Development Best Practices
+- Include a complete development environment setup including:
+  - ESLint configuration (`.eslintrc.js`)
+  - Jest test configuration
+  - Example test files
+  - Basic error handling templates
+- Provide clear error messages and appropriate fallback behaviors
+- Include handling for edge cases (e.g., non-English characters, missing data)
+- Log meaningful debug information using the provided `introspect` and `logger` functions
+
+### Error Handling
+Custom agent skills should implement proper error handling for:
+- Missing or invalid API keys
+- Failed API requests
+- Invalid input parameters
+- Rate limiting
+- Character encoding issues
+- Timeout scenarios
+
+### Testing
+- Include unit tests for core functionality
+- Provide mock data for testing
+- Test error scenarios
+- Test edge cases with special characters
+- Test with missing optional parameters
+- Test with invalid input
+
+### Logging and Debugging
+The skill should use the provided logging functions appropriately:
+```javascript
+this.introspect("User-facing message about current operation");
+this.logger("Debug information for developers");
+```
+
+### Configuration
+- Provide clear documentation for all configuration options
+- Include a `.env.sample` file with all required variables
+- Document any API requirements or limitations
+- Include example configuration for common scenarios
+
+### Common Gotchas
+- Special character handling in API requests
+- URL encoding for query parameters
+- JSON parsing of API responses
+- Rate limiting and throttling
+- API version compatibility
+- Language and locale handling
+
+### Performance Considerations
+- Implement appropriate caching strategies
+- Handle API rate limits gracefully
+- Consider pagination for large result sets
+- Implement timeouts for external requests
+- Handle large response payloads efficiently
+
+### Documentation Requirements
+The README.md should include:
+- Clear installation instructions
+- Development setup steps
+- Testing procedures
+- Error handling documentation
+- API limitations and known issues
+- Troubleshooting guide
+- Example usage with actual output
+- Environment variable documentation
+- Contributing guidelines
 
 ## Hot loading of custom agent skills
 If you are in an active agent invocation when you make changes to your custom agent skill, you will need to /exit the current session for the changes to take effect. If you just added a new custom agent skill you will need to revisit or reload the page for the new skill to be shown in the UI. AnythingLLM supports hot loading of custom agent skills. This means that you can make changes to your custom agent skill and see the changes without having to restart the agent or the instance of AnythingLLM.
@@ -58,13 +124,22 @@ Your custom agent skill should be wrapped in a folder with the same hubId proper
 }
 ```
 
-Folder structure for associated agent skill: NOTE: The folder name must match the hubId property in the `plugin.json` file.
+### Project Structure
+Project folder structure for associated agent skill: NOTE: The folder name must match the hubId property in the `plugin.json` file.
 
 ```
-plugins/agent-skills/my-custom-agent-skill
-|-- `plugin.json`
-|-- `handler.js`
-|-- `run.js`
+my-custom-agent-skill/
+├── .eslintrc.js
+├── .gitignore
+├── LICENSE
+├── README.md
+├── handler.js
+├── plugin.json
+├── run.js
+├── package.json
+├── .env.sample
+└── __tests__/
+└── handler.test.js
 |-- // You can add any additional files you want to the folder and reference them in the `handler.js` file!
 ```
 
@@ -451,3 +526,172 @@ All data pertaining to AnythingLLM Desktop will be in the following locations. P
   d. Regular rebasing of feature branches on the develop branch
   e. Squashing commits before merging to main branches
 - All code will be written in VSCode and managed by Yarn.
+
+# Custom Agent Skill Development Instructions
+
+## Phase 1: Project Information Gathering
+Before beginning any development work, the following information MUST be collected from the user:
+
+### Required Project Details
+```yaml
+name: ""          # Full project name (e.g., "Weather Forecast Skill")
+hubId: ""         # Short name/identifier (e.g., "weather-skill")
+author: ""        # Developer name or team
+author_url: ""    # Developer website or GitHub profile
+```
+
+### Required Documentation
+1. **Functional Requirements**
+   - Core functionality and features
+   - Expected inputs and outputs
+   - Success criteria
+   - Performance requirements
+
+2. **Constraints**
+   - Technical limitations
+   - Platform requirements
+   - Compliance requirements
+   - Security considerations
+
+3. **Design Choices**
+   - Architecture decisions
+   - Technology stack
+   - Integration patterns
+   - Data flow
+
+4. **External API Documentation**
+   - API endpoint documentation
+   - Authentication methods
+   - Rate limits and quotas
+   - Response formats
+   - Sample requests/responses
+
+## Phase 2: Implementation Guidelines
+
+### Error Handling
+Only after gathering Phase 1 information, implement error handling for:
+- Missing or invalid API keys
+- Failed API requests
+- Invalid input parameters
+- Rate limiting
+- Character encoding issues
+- Timeout scenarios
+
+### Testing
+Tests should be based on actual requirements from Phase 1:
+- Include unit tests for core functionality
+- Provide mock data for testing
+- Test error scenarios
+- Test edge cases with special characters
+- Test with missing optional parameters
+- Test with invalid input
+
+### Logging and Debugging
+Implement logging based on project requirements:
+```javascript
+this.introspect("User-facing message about current operation");
+this.logger("Debug information for developers");
+```
+
+### Configuration
+Configuration should reflect Phase 1 requirements:
+- Provide clear documentation for all configuration options
+- Include a `.env.sample` file with all required variables
+- Document any API requirements or limitations
+- Include example configuration for common scenarios
+
+### Common Gotchas
+Address specific challenges identified in Phase 1:
+- Special character handling in API requests
+- URL encoding for query parameters
+- JSON parsing of API responses
+- Rate limiting and throttling
+- API version compatibility
+- Language and locale handling
+
+### Performance Considerations
+Implement based on documented requirements:
+- Implement appropriate caching strategies
+- Handle API rate limits gracefully
+- Consider pagination for large result sets
+- Implement timeouts for external requests
+- Handle large response payloads efficiently
+
+### Documentation Requirements
+README.md should include all gathered information:
+- Clear installation instructions
+- Development setup steps
+- Testing procedures
+- Error handling documentation
+- API limitations and known issues
+- Troubleshooting guide
+- Example usage with actual output
+- Environment variable documentation
+- Contributing guidelines
+
+## Example Project Information Format
+```json
+{
+  "name": "Weather Forecast Skill",
+  "hubId": "weather-skill",
+  "author": "Jane Smith",
+  "author_url": "https://github.com/janesmith",
+  "requirements": {
+    "functional": [
+      "Fetch weather forecasts for given locations",
+      "Support both metric and imperial units",
+      "Provide 5-day forecast capability"
+    ],
+    "constraints": [
+      "Must handle rate limits of 60 requests/minute",
+      "Maximum response time of 2 seconds",
+      "GDPR compliance required for EU users"
+    ],
+    "design": [
+      "RESTful API integration",
+      "Redis caching for frequent requests",
+      "Error retry with exponential backoff"
+    ],
+    "external_apis": [
+      {
+        "name": "OpenWeather API",
+        "docs_url": "https://openweathermap.org/api",
+        "auth_method": "API Key",
+        "rate_limits": "60 calls/minute"
+      }
+    ]
+  }
+}
+```
+
+## Development Session Flow
+1. **Information Gathering**
+   - Collect all required project details
+   - Validate completeness of information
+   - Clarify any ambiguous requirements
+
+2. **Planning**
+   - Review all provided documentation
+   - Identify potential challenges
+   - Plan implementation approach
+
+3. **Implementation**
+   - Generate project structure
+   - Create boilerplate code
+   - Implement core functionality
+   - Add error handling
+   - Write tests
+
+4. **Documentation**
+   - Generate README.md
+   - Create API documentation
+   - Document configuration options
+   - Provide usage examples
+
+5. **Review**
+   - Verify all requirements are met
+   - Check documentation completeness
+   - Validate test coverage
+   - Ensure error handling is comprehensive
+
+DO NOT proceed with any implementation until ALL Phase 1 information has been collected and validated.
