@@ -19,3 +19,6 @@
 [submodule "omdb-movie-data"]
 	path = omdb-movie-data
 	url = git@github.com:rmrfslashbin/anythingllm-custom-agent-omdb-movie-data
+[submodule "stability-ai-image"]
+	path = stability-ai-image
+	url = git@github.com:rmrfslashbin/anythingllm-custom-agent-stability-ai-image
