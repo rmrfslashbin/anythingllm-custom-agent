@@ -7,6 +7,7 @@ AnythingLLM allows you to create custom agent skills that can be used to extend 
 Custom agent skills are newly supported in AnythingLLM and may have some bugs, quirks, missing features, unsupported features, etc. Please report any feature requests or bugs you find to the GitHub repository (https://github.com/Mintplex-Labs/anything-llm).
 
 ## High Level Requirements
+- All JavaScript code must comply with CommonJS module standards (using require() and module.exports). ES Modules syntax (import/export statements) and ES Module file extensions (.mjs) are not permitted. This includes avoiding package.json "type": "module" configurations. This standardization ensures consistent module loading behavior across the project.
 - NodeJS programming experience is required to create custom agent skills. Go to the developer guide to get started.
 - Custom agent skills must exactly match the requirements listed on this help page.
 - There are built in functions and utilities to help you log data or thoughts for an agent.
