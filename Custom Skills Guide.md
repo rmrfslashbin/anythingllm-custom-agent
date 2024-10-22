@@ -134,6 +134,7 @@ my-custom-agent-skill/
 ├── LICENSE
 ├── README.md
 ├── handler.js
+├── Makefile
 ├── plugin.json
 ├── run.js
 ├── package.json
@@ -462,6 +463,78 @@ async function main() {
 }
 
 main().catch(console.error);
+```
+
+## Makefile Usage
+The project includes a Makefile to automate common development tasks and generate artifacts for analysis.
+
+### Available Targets
+
+#### Development
+- `make install` - Install project dependencies
+- `make test` - Run the test suite
+- `make lint` - Run linting checks
+- `make format` - Format code using prettier
+- `make validate` - Run all validation checks (lint + test)
+
+#### Runtime
+- `make run` - Execute the application with default settings
+
+#### Cleanup
+- `make clean` - Remove build artifacts and temporary files
+- `make distclean` - Deep clean, including dependencies and lock files
+
+#### Analysis
+- `make tarball` - Create a tarball suitable for AI analysis
+  - Generates: `artifacts/stability-ai-image.tar`
+  - Excludes non-essential files (env files, dependencies, caches, etc.)
+  - Creates archive from parent directory for correct paths
+  - Suitable for sharing with AI systems for code review
+
+#### Help
+- `make help` - Display available targets and their descriptions
+
+### Directory Structure Created by Makefile
+```
+stability-ai-image/
+├── artifacts/          # Generated artifacts (tarballs, etc.)
+└── output/            # Generated images and other output files
+```
+
+### Makefile Configuration
+The Makefile uses these default configurations which can be overridden:
+```makefile
+YARN := yarn           # Yarn package manager
+NODE := node           # Node.js executable
+PROJECT := stability-ai-image  # Project name
+TARBALL := $(PROJECT).tar     # Output tarball name
+```
+
+To override these defaults, you can set them when running make:
+```bash
+make YARN=pnpm install  # Use pnpm instead of yarn
+```
+
+### Best Practices
+1. Run `make validate` before committing changes
+2. Use `make clean` regularly to remove temporary files
+3. Use `make tarball` when preparing code for AI analysis
+4. Check `make help` for available commands
+
+### Example Usage
+```bash
+# Initial setup
+make install
+
+# Development cycle
+make format
+make validate
+
+# Generate analysis tarball
+make tarball
+
+# Clean up
+make clean
 ```
 
 ## Where is my data located?
